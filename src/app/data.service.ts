@@ -1,3 +1,4 @@
+import { DataModel, RootObject } from './data.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,12 +7,21 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
 
-  url = 'https://jsonplaceholder.typicode.com/users';
+  url = 'https://jsonplaceholder.typicode.com/users/';
+  urlPosts = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get(this.url);
+    // casting
+    return this.http.get<DataModel>(this.url);
+  }
+  // casting
+  getUser(userId) {
+    return this.http.get<DataModel>(this.url + userId);  }
+  // casting
+  getPosts() {
+    return this.http.get<RootObject>(this.urlPosts);
   }
 
 }
